@@ -15,6 +15,7 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
     </munit:test>
     <munit:test name="processOrders_internationalKeyContainsWorldwideOrders_True" description="Calling processOrders flow returns payload containing worldwide orders when key is international">
         <munit:set payload="#[[{'orderID':444, 'location':'worldwide','price':44.04}, {'orderID':555, 'location':'worldwide','price':55.05}]]" doc:name="Set Message: Set payload to international orders only"/>
+        <logger message="#[payload]" level="INFO" doc:name="Log Payload"/>
         <flow-ref name="processOrders" doc:name="Flow-ref to processOrders"/>
         <munit:assert-true message="FAILED... international key has NO rows" condition="#[payload.'international'.size() &gt; 0]" doc:name="Assert True: international key has some rows"/>
     </munit:test>
